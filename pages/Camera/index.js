@@ -39,6 +39,7 @@ const Cameras = () => {
             camera = ref;
         }}
         >
+            
             <View
             style={{
                 flex: 1,
