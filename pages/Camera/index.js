@@ -19,7 +19,7 @@ const Cameras = () => {
         return <View />;
     }
     if (hasPermission === false) {
-        return <Text>No access to camera</Text>;
+        return <Text>Sem acesso a camera</Text>;
     }
 
     const Foto = async () => {
