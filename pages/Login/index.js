@@ -1,13 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = () => {
+const Login = ( {navigation} ) => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
+    const Salvar = async (value) => {
+        try{
+            await AsyncStorage.setItem('@jwt', value)
+        } catch (e) {
+
+        }
+    }
+
     const Logar = () => {
-        alert(email + '-'+senha);
-        console.log('Foi')
+        // alert(email + '-'+senha);
+        // console.log('Foi')
+
+        const corpo = {
+            email : email,
+            senha : senha
+        }
+
+        fetch('http://192.168.4.117:5000/api/Account/login', {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body : JSON.stringify(corpo)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if(data.status != 404){
+                alert('Login efetaudo')
+                console.log(data.token);
+
+                Salvar(data.token);
+                navigation.push('Autenticado');
+            }else{
+                alert('Dados incorretos')
+            }
+        })
+        // .catch(error => alert('Falha na requisição'))
     }
  
     useEffect(() => {

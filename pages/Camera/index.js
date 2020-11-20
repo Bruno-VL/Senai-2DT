@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button, Image } from 'react-native';
 import {Camera} from 'expo-camera';
-import { event } from 'react-native-reanimated';
 
 const Cameras = () => {
     const [hasPermission, setHasPermission] = useState(null);
