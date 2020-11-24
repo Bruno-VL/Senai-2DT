@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import Cameras from './pages/Camera';
 import Login from './pages/Login';
 import Home from './pages/Home';
+import Cadastro from './pages/Cadastro';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -40,6 +41,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown : false }}>
         <Stack.Screen name="Login" component={Login} /> 
+        <Stack.Screen name="Cadastro" component={Cadastro} /> 
         <Stack.Screen name="Autenticado" component={Autenticado} />
       </Stack.Navigator>
     </NavigationContainer>

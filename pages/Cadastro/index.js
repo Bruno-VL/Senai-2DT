@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Login = ( {navigation} ) => {
+const Cadastro = ( {navigation} ) => {
+    const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
@@ -14,16 +15,17 @@ const Login = ( {navigation} ) => {
         }
     }
 
-    const Logar = () => {
+    const Cadastrar = () => {
         // alert(email + '-'+senha);
         // console.log('Foi')
 
         const corpo = {
+            nome : nome,
             email : email,
             senha : senha
         }
 
-        fetch('http://192.168.4.117:5000/api/Account/login', {
+        fetch('http://192.168.4.117:5000/api/Account/register', {
             method : 'POST',
             headers : {
                 'Content-Type' : 'application/json'
@@ -38,9 +40,9 @@ const Login = ( {navigation} ) => {
                 console.log(data.token);
 
                 Salvar(data.token);
-                navigation.push('Autenticado');
+                navigation.push('Cadastro Efetuado');
             }else{
-                alert('Dados incorretos')
+                alert('Ocorreu um Erro')
             }
         })
         // .catch(error => alert('Falha na requisição'))
@@ -53,6 +55,13 @@ const Login = ( {navigation} ) => {
     return(
         <View style={styles.container}>
             <Text>Login</Text>
+            
+            <TextInput
+                style={styles.input}
+                onChangeText={text => setNome(text)}
+                value={nome}
+                placeholder="Nome Completo"
+            />
 
             <TextInput
                 style={styles.input}
@@ -68,11 +77,12 @@ const Login = ( {navigation} ) => {
                 placeholder="Digite sua Senha"
             />
 
-            <TouchableOpacity style={styles.button} onPress={Logar}>
-                    <Text style={{color: 'white'}}>Entrar</Text>
+            <TouchableOpacity style={styles.button} onPress={Cadastrar}>
+                    <Text style={{color: 'white'}}>Cadastrar</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cadastro')}>
-                    <Text style={{color: 'white'}}>Cadrastre-se aqui</Text>
+            <Text >Ja é cadastrado? Faça seu login aqui</Text>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+                    <Text style={{color: 'white'}}>Login</Text>
             </TouchableOpacity>
         </View>
     )
@@ -112,4 +122,4 @@ const styles = StyleSheet.create({
   });
 
 
-export default Login; 
+export default Cadastro;
